@@ -45,4 +45,4 @@ jobs:
 
       - name: Deploy to App Engine
         run: |
-          gcloud app deploy ./my-angular-app/dist/my-angular-app/app.yaml --project=${{ secrets.GCP_PROJECT_ID }} --quiet --promote
+          gcloud app deploy ./my-angular-app/app.yaml --project=${{ secrets.GCP_PROJECT_ID }} --quiet --promote
