@@ -5,7 +5,7 @@ automatic_scaling:
   max_instances: 2
 handlers:
   - url: /
-    static_files: dist/my-angular-app/index.html
-    upload: dist/my-angular-app/index.html
+    static_files: dist/my-angular-app/browser/index.html
+    upload: ./
   - url: /
-    static_dir: dist/my-angular-app
+    static_dir: dist/my-angular-app/browser/index.html
