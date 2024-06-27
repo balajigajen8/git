@@ -29,11 +29,17 @@ jobs:
         working-directory: ./my-angular-app/
         run: npm run build -- --configuration=production
 
+      - name: Create artifact directory
+        run: |
+          mkdir -p artifact
+          cp -r ./my-angular-app/dist/my-angular-app ./artifact/
+          cp -r ./dist ./artifact/
+
       - name: Archive production build
         uses: actions/upload-artifact@v2
         with:
           name: dist-${{ github.run_number }}-${{ github.run_id }}-${{ github.sha }}-${{ github.event_name }}-${{ github.event.created_at }}
-          path: ./my-angular-app/dist/my-angular-app
+          path: ./artifact
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.4.0
