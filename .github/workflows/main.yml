@@ -18,28 +18,23 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
       - name: Install dependencies
         working-directory: ./my-angular-app/
         run: npm install
 
       - name: Build Angular app for production
         working-directory: ./my-angular-app/
-        run: ng build --configuration production
+        run: npm run build -- --configuration production
 
       - name: Serve Angular app locally
         working-directory: ./my-angular-app/
-        run: ng serve --configuration production --host 0.0.0.0 --port 4200 &
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: ./my-angular-app/dist/my-angular-app
+        run: npm run serve -- --configuration production --host 0.0.0.0 --port 4200 &
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v0.4.0
-        with:
-          version: '482.0.0'
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
@@ -48,4 +43,4 @@ jobs:
 
       - name: Deploy to App Engine
         run: |
-          gcloud app deploy --quiet ./my-angular-app/app.yaml --project ${{ secrets.GCP_PROJECT_ID }} --promote
+          gcloud app deploy ./my-angular-app/app.yaml --project ${{ secrets.GCP_PROJECT_ID }} --quiet --promote
